@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}
+    video detail | {{ super() }}
+{% endblock %}
+
+{% block content %}
+<!-- <div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ instance.video_id }}" title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+</div> -->
+<div class="row">
+    <div class="col-2">
+        {% include "/videos/sidebar.html" %}
+    </div>
+    <div class="col-10">
+        <div>
+            <!-- {{instance.render() | safe }} -->
+            <h2>{{ instance.title }}</h2>
+            {% with video=instance %}
+                {% include 'videos/htmx/video-inline-edit.html' %}
+            {% endwith%}
+        </div>
+        <div class="ratio ratio-16x9" id="yt-player" data-video-id="{{ instance.video_id }}" data-start-time="{{ start_time }}"></div>
+    </div>
+</div>
+
+<script>
+
+    youTubePlayerDiv = document.getElementById('yt-player')
+
+    if (youTubePlayerDiv) {
+
+        var player;
+        var is_playing;
+        var video_id = youTubePlayerDiv.getAttribute('data-video-id')
+        var saveCurrentTimeInterval = 5000 // ms
+        var monitorInterval = 1000 // ms
+        var savingInterval = 5000 // ms
+        var currentPlayedTime;
+        var monitorTimeOut;
+        var timeSinceLastSave = 0
+
+        var initialStartTime = parseInt(youTubePlayerDiv.getAttribute('data-start-time')) || 0;
+
+        console.log(initialStartTime); 
+        
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                videoId: video_id,
+                playerVars: {
+                    'autoplay': 1,
+                    'modestbranding': 0,
+                    'playsinline': 1,
+                    'controls': 1,
+
+                },
+                events: {
+                    onReady: OnPlayerReady,
+                    onStateChange: onChangePlayerState
+                }
+            })
+        }
+
+    }
+    
+    function OnPlayerReady(event) {
+        player.seekTo(initialStartTime)
+    }
+
+    function onChangePlayerState(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+            // console.log("play");
+            is_playing = true
+            monitorPlayingTime()
+        }
+        else if (event.data === YT.PlayerState.PAUSED) {
+            // console.log("pause");
+            is_playing = false
+            clearTimeout(monitorTimeOut)
+            monitorPlayingTime()
+            saveVideoPlaybackData()
+
+
+        }
+        else if (event.data === YT.PlayerState.ENDED) {
+            // console.log("end");
+            is_playing = false
+            monitorPlayingTime()
+            saveVideoPlaybackData()
+        }
+    }
+
+    function monitorPlayingTime() {
+        currentPlayedTime = player.getCurrentTime();
+        // console.log('current played',currentPlayedTime)
+        if (is_playing) {
+            monitorTimeOut = setTimeout(monitorPlayingTime, monitorInterval)           
+        }
+        timeSinceLastSave += monitorInterval
+        if (timeSinceLastSave > savingInterval) {
+            saveVideoPlaybackData()
+        }
+    }
+
+    function saveVideoPlaybackData() {
+        duration = player.getDuration()
+        var data = {
+            video_id: video_id,
+            start_time: initialStartTime,
+            end_time: currentPlayedTime,
+            duration: duration,
+            completed: duration * .98 < currentPlayedTime,
+            path: window.location.pathname
+        }
+       
+        console.log('savid data ...', data);
+
+        timeSinceLastSave = 0
+
+        var reqOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+        fetch("/events/playback", reqOptions)
+            .then(response => response.json())
+            .then(data => {
+                //console.log("success:", data)
+            })
+            .catch(err => {
+                // fetch to an error catching endpoint
+                //console.log('error: ', err)
+            })
+
+    }
+
+</script>
+{% endblock %}

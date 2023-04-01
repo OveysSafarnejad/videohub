@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+edit video | {{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<div>
+    <h3>edit {{ video.title }}</h3>
+    {% with video=video, errors=errors %}
+        {% include "/videos/htmx/edit.html" %}
+    {% endwith %}
+</div>
+
+{% endblock %}

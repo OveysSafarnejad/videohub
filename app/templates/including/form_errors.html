@@ -1,0 +1,7 @@
+{% if errors %}
+    <div style="background-color:hotpink; margin-bottom:20px;">
+        {% for error in errors%}
+            <li>{{ error['msg'] }}</li>
+        {% endfor %}
+    </div>
+{% endif %}

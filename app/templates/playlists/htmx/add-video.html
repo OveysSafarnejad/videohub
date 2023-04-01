@@ -1,0 +1,17 @@
+<div>
+    {% include "including/form_errors.html" %}
+
+    <form method="POST" action="/playlists/{{ db_id }}/add-video"
+          hx-post="/playlists/{{ db_id }}/add-video">
+
+        <div>
+            <!-- <label>title</label> -->
+            <input class="form-control" type="text" name="title" , placeholder="title goes here" required="required">
+        </div>
+        <div>
+            <!-- <label>video url</label> -->
+            <input class="form-control" type="text" name="url" , placeholder="https://..." required="required">
+        </div>
+        <button class="btn btn-sm btn-outline-secondary my-2"> add video </button>
+    </form>
+</div>

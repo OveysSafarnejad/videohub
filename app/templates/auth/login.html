@@ -1,0 +1,38 @@
+{% extends "base.html"%}
+{% block title %}
+    login | {{ super() }}
+{% endblock %}
+
+{% block content %}
+    
+    {% if is_login %}
+        <h3>You have loged in, do you want to <a href="/auth/logout" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                logout?
+            </a>
+        </h3>
+    {% else %}
+            <div class="row">
+                <div class="col-md-4 mx-auto">
+                    <h1>LOGIN</h1>
+                    {% include "including/form_errors.html" %}
+
+                    <form method="POST">
+                        <div class="my-1">
+                            <!-- <label>EMAIL</label> -->
+                            <input class="form-control" type="email" name="email" placeholder="your email address">
+                        </div>
+                        <div class="my-1">
+                            <!-- <label>PASSWORD</label> -->
+                            <input class="form-control" type="password" name="password" placeholder="your password">
+                        </div>
+                        <button class="btn btn-sm btn-outline-primary mt-3"> login </button>
+
+                    </form>
+                    Don't have an account?<a href="/auth/signup" class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                         register
+                    </a>
+                </div>
+            </div>
+    
+    {% endif %}    
+{% endblock%}

@@ -1,0 +1,34 @@
+{% extends "base.html"%}
+{% block title %}
+    signup | {{ super() }}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <h1>SIGNUP</h1>
+            {% include "including/form_errors.html" %}
+            <form method="POST">
+                <div class="my-1">
+                    <!-- <label>EMAIL</label> -->
+                    <input class="form-control" type="email" name="email" placeholder="your email address">
+                </div>
+
+                <div class="my-1">
+                    <!-- <label>PASSWORD</label> -->
+                    <input class="form-control" type="password" name="password" placeholder="your password">
+                </div>
+
+                <div class="my-1">
+                    <!-- <label>CONFIRM PASSWORD</label> -->
+                    <input  class="form-control" type="password" name="password_confirm" placeholder="password confirmation">
+                </div>
+                <button class="btn btn-sm btn-outline-primary mt-3"> signup </button>
+
+            </form> 
+            Already have an account?<a href="/auth/login"
+                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                login
+            </a>
+        </div>
+    </div>
+{% endblock%}

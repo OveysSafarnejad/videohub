@@ -1,0 +1,19 @@
+<div id="video-{{video.video_id}}">
+    <div class="row">
+        <div class="col-11">
+            <a class="list-group-item list-group-item-action" href="{{ video.path }}">
+                {% if not video.title %}
+                {{ video.video_id }}
+                {% else %}
+                {{ video.title }}
+                {% endif %}
+            </a>
+        </div>
+        <div class="col-1">
+            <button class="btn btn-sm btn-outline-warning my-2 float-end" hx-get="/videos/{{video.video_id}}/hx-edit"
+                hx-target="#video-{{video.video_id}}">
+                edit
+            </button>
+        </div>
+    </div>
+</div>

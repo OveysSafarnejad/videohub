@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    playlists | {{ super() }}
+{% endblock %} 
+
+{% block content %}
+<div class="row">
+    <div class="col-2">
+    {% include "/playlists/sidebar.html" %}
+    </div>
+    <div class="col-10">
+        <div class="container-fluid list-group">
+                {% for pl in playlists %}
+                    <a class="list-group-item list-group-item-action" href="{{ pl.path }}">
+                        {{ pl.title }}
+                    </a>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

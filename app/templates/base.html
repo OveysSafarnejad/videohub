@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title%} FastApi {% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+
+<body>
+    {% include 'including/header.html' %}
+    <div style="background-color: lightgray; width: 100%; height: 10px;margin-left: auto; margin-right: auto;"></div>
+    <div class="container mt-3">
+        {% block content%}
+        {% endblock %}
+    </div>
+    
+    
+    
+    <script src="https://youtube.com/iframe_api"></script>
+    
+    <!-- DOES NOT WORK IF THERE IS SOME SCRIPT IN OTHER PLACES -->
+    <!-- I CAN SEARCH FOR SOME WORKAROUND -->
+    
+    <!-- <script>
+            var tag = document.createElement("script");
+            tag.src = "https://youtube.com/iframe_api";
+    
+            var firstScriptTag = document.getElementsByTagName("script")[1];
+            console.log(firstScriptTag);
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+        </script> -->
+    <script src="https://unpkg.com/htmx.org@1.8.6"
+        integrity="sha384-Bj8qm/6B+71E6FQSySofJOUjA/gq330vEqjFx9LakWybUySyI1IQHwPtbTU7bNwx" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
