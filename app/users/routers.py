@@ -41,9 +41,9 @@ def get_login(request: Request):
 
 @router.post("/auth/login", response_class=HTMLResponse)
 def post_login(
-    request: Request, 
-    email: str = Form(...), 
-    password: str = Form(...), 
+    request: Request,
+    email: str = Form(...),
+    password: str = Form(...),
     next: Optional[str]='/'
 ):
 
@@ -58,7 +58,7 @@ def post_login(
     }
     if len(errors):
         return render(request=request, template='auth/login.html', context=context, status_code=400)
-    
+
     # TODO: find a clean way
     if 'localhost:8000' not in next:
         next = '/'

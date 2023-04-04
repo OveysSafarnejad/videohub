@@ -19,7 +19,7 @@ class CreateVideoSchema(BaseModel):
 
         if not video_id:
             raise ValueError("Invalid video url.")
-        
+
         return url
 
     @root_validator
@@ -37,7 +37,7 @@ class CreateVideoSchema(BaseModel):
             raise ValueError('video already added!!')
         except:
             raise ValueError('there is some problems with your account, try another url or call site administration!')
-        
+
 
         video.title = title
         video.save()

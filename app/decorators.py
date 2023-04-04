@@ -11,5 +11,5 @@ def htmx_required(func):
         if not is_htmx(request=request):
             raise StarletteHttpException(status_code=status.HTTP_400_BAD_REQUEST)
         return func(request, *args, **kwargs)
-    
+
     return wrapper

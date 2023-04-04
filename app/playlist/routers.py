@@ -75,10 +75,10 @@ def playlist_add_video_get_view(request: Request, db_id: uuid.UUID, is_htmx=Depe
 @router.post('/{db_id}/add-video', response_class=HTMLResponse)
 @login_required
 def playlist_add_video_post_view(
-    request: Request, 
-    db_id: uuid.UUID, 
-    is_htmx=Depends(is_htmx), 
-    url: str = Form(...), 
+    request: Request,
+    db_id: uuid.UUID,
+    is_htmx=Depends(is_htmx),
+    url: str = Form(...),
     title: str = Form(...)
 ):
 
@@ -115,15 +115,15 @@ def playlist_add_video_post_view(
 @router.post('/{db_id}/videos/{video_id}/delete', response_class=HTMLResponse)
 @login_required
 def playlist_remove_video_view(
-    request: Request, 
+    request: Request,
     db_id: uuid.UUID,
     video_id: str
-):  
+):
     try:
         pl = get_object_or_404(Playlist, db_id=db_id)
     except:
         raise Exception()
-    
+
     pl_videos = pl.video_ids
     pl_videos.remove(video_id)
     pl.add_videos(video_list=pl_videos, replace_all=True)

@@ -11,9 +11,9 @@ def extract_yt_id_from(url: str):
 
     if query.hostname == 'youtu.be':
         return query.path[1:]
-    
+
     if query.hostname in {'www.youtube.com', 'youtube.com'}:
-       
+
         if query.path == '/watch':
             return parse_qs(query.query)['v'][0]
         if query.path[:7] == '/watch/':
@@ -22,4 +22,4 @@ def extract_yt_id_from(url: str):
             return query.path.split('/')[2]
         if query.path[:3] == '/v/':
             return query.path.split('/')[2]
-    return None 
+    return None

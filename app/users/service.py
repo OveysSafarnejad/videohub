@@ -10,5 +10,5 @@ def user_exist(user_id: uuid1, _return: bool=True, raise_exception: bool=False):
 
     if users.count() == 0:
         return exist, None
-    
+
     return exist, users.first() if _return else exist, None

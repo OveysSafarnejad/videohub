@@ -23,11 +23,11 @@ class Event(Model):
 
     @staticmethod
     def get_resume_time(video_id, user_id):
-        start_time = 0 
+        start_time = 0
         event = Event.objects.allow_filtering().filter(video_id=video_id, user_id=user_id).first()
 
         if event:
             if not event.completed and not (event.duration * 0.98) < event.end_time:
                 return event.end_time
-            
+
         return start_time

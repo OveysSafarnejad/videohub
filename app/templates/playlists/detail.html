@@ -14,7 +14,7 @@
         <div>
             <h2>{{ instance.title }}</h2>
         </div>
-        
+
         <!-- adding create video form by htmx  -->
         <!-- requires a get request to given view -->
         <!-- on a button click -->
@@ -23,7 +23,7 @@
         <div id="add_video">
             <ul class="list-group">
                 {% for video in instance.get_videos() %}
-                    
+
                     {% with path=video.path, title=video.title %}
                         <li class="list-group-item" id="video-{{ loop.index }}">
                             <div class="row">
@@ -39,12 +39,12 @@
                             </div>
                         </li>
                     {% endwith %}
-                    
+
                 {% endfor %}
             </ul>
 
         </div>
         <button class="mt-3 btn btn-sm btn-outline-primary" hx-get="/playlists/{{ instance.db_id }}/add-video"  hx-trigger="click" hx-target="#add_video" hx-swap="beforeend">add more video to playlist</button>
     </div>
-</div>    
+</div>
 {% endblock %}

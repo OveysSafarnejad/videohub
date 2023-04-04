@@ -32,7 +32,7 @@ def get_object_or_404(klass, **kwargs):
     except:
         raise Exception('No %s matches the given query.' %
                         klass.model._meta.object_name)
-    
+
     return _object
 
 
@@ -42,7 +42,7 @@ def redirect(path,  cookies: dict = {}, clear: bool = False):
         for key, value in cookies.items():
             response.set_cookie(key=key, value=value, httponly=True)
     if clear:
-        response.delete_cookie('token')    
+        response.delete_cookie('token')
 
     return response
 
@@ -51,10 +51,10 @@ def render(request: Request, template: str, status_code: int=status.HTTP_200_OK,
     context.update(
         {"request": request}
     )
-    
+
     _template = templates.get_template(name=template)
     template_string = _template.render(context)
-    
+
     response = HTMLResponse(content=template_string, status_code=status_code)
     # now we may set some cookies here
     if len(cookies.keys()) > 0:

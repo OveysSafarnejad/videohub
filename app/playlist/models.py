@@ -59,8 +59,8 @@ class Playlist(Model):
                 video_obj = Video.objects.get(video_id=video)
             except Video.DoesNotExist:
                 video_obj = None
-            
+
             if video_obj:
                 playlist_videos.append(video_obj)
-                
+
         return playlist_videos

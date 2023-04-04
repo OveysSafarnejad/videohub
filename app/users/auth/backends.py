@@ -22,15 +22,15 @@ def validate_user(email: str, password: str):
     except User.MultipleObjectsReturned:
         # centry capture
         user = User.objects.filter(email=email).first()
-    
+
     if not user.verify_password(password):
         print('password does not match!')
-    
+
     return user
 
 
 def login(user: User, expires_after=settings.token_expiration_time):
-    
+
 
     payload = {
         "user_id": f"{user.user_id}",

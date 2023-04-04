@@ -19,7 +19,7 @@ async def http_exception_handler(request, exc):
 
 @app.exception_handler(LoginRequiredException)
 async def http_exception_handler(request, exc):
-    response = redirect(f'/auth/login?next={request.url}', clear=True) 
+    response = redirect(f'/auth/login?next={request.url}', clear=True)
     if is_htmx(request=request):
         response.status_code = status.HTTP_200_OK
         response.headers['HX-Redirect'] = '/auth/login'

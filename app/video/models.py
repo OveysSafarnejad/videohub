@@ -32,7 +32,7 @@ class Video(Model):
 
     def __repr__(self):
         return f"Video(video_id={self.video_id})"
-    
+
     def render(self):
         template = f'videos/renderers/{self.host_service}.html'
         t = templates.get_template(template)
@@ -41,7 +41,7 @@ class Video(Model):
         }
 
         return t.render(context)
-    
+
     def as_data(self):
         data = {
             f'{self.host_service}_id': self.video_id,
@@ -50,11 +50,11 @@ class Video(Model):
         }
 
         return data
-    
+
     @property
     def path(self):
         return f'/videos/{self.video_id}'
-    
+
     @staticmethod
     def get_or_create(url, user_id, **kwargs):
 
@@ -79,7 +79,7 @@ class Video(Model):
         video_id = extract_yt_id_from(url)
         if video_id is None:
             raise InvalidUrlException('Invalid url!')
-        
+
         self.url = url
         self.video_id = video_id
         if save_instance:
@@ -91,7 +91,7 @@ class Video(Model):
         host_id = extract_yt_id_from(url)
         if host_id is None:
             raise InvalidUrlException('Invalid url!')
-        
+
         user_exist = user_services.user_exist(
             user_id=user_id,
             _return=False,
@@ -100,15 +100,15 @@ class Video(Model):
 
         if not user_exist:
             raise UserDoesNotExistException('User does not exist!')
-        
+
         existings = Video.objects.allow_filtering().filter(
             user_id=user_id, video_id=host_id)
-        if existings.count() > 0 : 
+        if existings.count() > 0 :
             raise VideoUlreadyAddedException('Video already added!')
-        
+
         video = Video.create(video_id=host_id, user_id=user_id, url=url)
-        
+
         return video
-        
-        
-        
+
+
+

@@ -25,14 +25,14 @@ class UserLoginSchema(BaseModel):
 
         if email is None or password is None:
             raise ValueError('authentication failed!')
-        
+
         password = password.get_secret_value()
         user = validate_user(email, password)
         if not user:
             raise ValueError('authentication failed!')
-        
+
         token = login(user=user)
-        
+
         return dict(token=token)
 
 
@@ -46,7 +46,7 @@ class UserSignupSchema(BaseModel):
     def check_email(cls, v, values, **kwargs):
         if User.objects.filter(email=v).count() > 0 :
             raise ValueError('email address is not available!')
-        
+
         return v
 
     @validator('password_confirm')
@@ -56,7 +56,7 @@ class UserSignupSchema(BaseModel):
 
         if password != password_confirm:
             raise ValueError('passwords don\'t match!')
-        
+
         return v
 
 

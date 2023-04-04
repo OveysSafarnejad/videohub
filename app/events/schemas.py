@@ -9,4 +9,3 @@ class EventSchema(BaseModel):
     duration: float
     completed: bool
     path: Optional[str]
-    

@@ -4,7 +4,7 @@
     <form method="POST" action="/videos/{{video.video_id}}/edit" hx-post="/videos/{{video.video_id}}/hx-edit">
         <div>
             <!-- <label>title</label> -->
-            <input class="form-control" type="text" name="title" , placeholder="title goes here" required="required" 
+            <input class="form-control" type="text" name="title" , placeholder="title goes here" required="required"
                    value="{% if video.title %} {{ video.title }} {% endif %}" >
         </div>
         <div>
@@ -18,7 +18,7 @@
                 <input class="form-check-input mx-2" type='checkbox' name='delete' id='delete' /> Delete
             </label>
         </div>
-        
+
         <button class="btn btn-sm btn-outline-secondary m1-2"> save </button>
     </form>
-</div>  
+</div>

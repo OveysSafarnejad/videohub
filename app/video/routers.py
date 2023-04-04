@@ -28,7 +28,7 @@ def videos(request: Request):
 @router.get('/create', response_class=HTMLResponse)
 @login_required
 def video_create_view(request: Request, is_htmx=Depends(is_htmx), playlist_id: Optional[uuid.UUID]=None):
-    
+
     if is_htmx:
         return render(request=request, template='videos/htmx/create.html')
     return render(request=request, template='videos/create.html')
@@ -45,7 +45,7 @@ def video_create_post_view(request: Request, is_htmx=Depends(is_htmx), url: str 
     }
 
     data, errors = validate_schema(raw_data=raw_data, SchemaModel=CreateVideoSchema)
-    
+
     redirect_url = data.get('path') or '/videos/create'
     context = {
         "data": data,
@@ -57,19 +57,19 @@ def video_create_post_view(request: Request, is_htmx=Depends(is_htmx), url: str 
     if is_htmx:
         if len(errors) > 0:
             return render(request, "/videos/htmx/create.html", context=context)
-        
+
         context = {
             "path": redirect_url,
             "title": title
         }
         return render(request, template="/videos/htmx/link.html", context=context)
-    
+
     if errors:
         context = {
             "errors": errors
         }
         return render(request, template='/videos/create.html', context=context, status_code=status.HTTP_400_BAD_REQUEST)
-    
+
     return redirect(path=redirect_url)
 
 
@@ -101,9 +101,9 @@ def video_edit_view(request: Request, video_id: str, is_htmx=Depends(is_htmx)):
 @login_required
 def video_edit_post_view(
     request: Request,
-    video_id: str, 
-    is_htmx=Depends(is_htmx), 
-    url: str = Form(...), 
+    video_id: str,
+    is_htmx=Depends(is_htmx),
+    url: str = Form(...),
     title: str = Form(...)
 ):
 
@@ -171,8 +171,8 @@ def video_hx_edit_post_view(
             "errors": errors
         }
         return render(request, template='/videos/htmx/edit.html', context=context, status_code=status.HTTP_400_BAD_REQUEST)
-    
-    
+
+
 
     obj.title = data.get("title") or obj.title
     obj.url = obj.update_video_url(url, save_instance=True)

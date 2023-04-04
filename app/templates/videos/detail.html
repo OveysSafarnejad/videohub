@@ -45,8 +45,8 @@
 
         var initialStartTime = parseInt(youTubePlayerDiv.getAttribute('data-start-time')) || 0;
 
-        console.log(initialStartTime); 
-        
+        console.log(initialStartTime);
+
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', {
                 videoId: video_id,
@@ -65,7 +65,7 @@
         }
 
     }
-    
+
     function OnPlayerReady(event) {
         player.seekTo(initialStartTime)
     }
@@ -97,7 +97,7 @@
         currentPlayedTime = player.getCurrentTime();
         // console.log('current played',currentPlayedTime)
         if (is_playing) {
-            monitorTimeOut = setTimeout(monitorPlayingTime, monitorInterval)           
+            monitorTimeOut = setTimeout(monitorPlayingTime, monitorInterval)
         }
         timeSinceLastSave += monitorInterval
         if (timeSinceLastSave > savingInterval) {
@@ -115,7 +115,7 @@
             completed: duration * .98 < currentPlayedTime,
             path: window.location.pathname
         }
-       
+
         console.log('savid data ...', data);
 
         timeSinceLastSave = 0

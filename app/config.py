@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 # This is a built-in package for validating data also suitable for loading environment variables
-from pydantic import BaseSettings, Field 
+from pydantic import BaseSettings, Field
 from functools import lru_cache
 
 

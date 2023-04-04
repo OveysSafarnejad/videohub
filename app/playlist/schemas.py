@@ -11,7 +11,7 @@ from app.playlist.models import Playlist
 class CreatePlaylistSchema(BaseModel):
     title: str
     user_id: str
-        
+
 
     @root_validator
     def validate_data(cls, values):
@@ -41,7 +41,7 @@ class PlaylistAddVideoSchema(BaseModel):
             raise ValueError("Invalid video url.")
 
         return url
-    
+
     @validator("playlist_id")
     def validate_playlist_id(cls, v, values, **kwargs):
         playlist_id = v

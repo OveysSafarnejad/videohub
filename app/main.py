@@ -11,7 +11,7 @@ from app.indexing.client import search_index, update_index
 from app.playlist.routers import router as playlist_router
 from app.playlist.models import Playlist
 from app.shortcuts import render
-from app.users.auth.jwt_backend import JwtAuthenticationBackend 
+from app.users.auth.jwt_backend import JwtAuthenticationBackend
 from app.users.models import User
 from app.users.routers import router as user_router
 from app.video.models import Video
@@ -56,7 +56,7 @@ def home_page(request: Request):
 
     else:
         return redirect('/auth/login')
-    
+
 
 @app.post('/update-index', response_class=HTMLResponse)
 def htmx_update_index_view(request: Request):
